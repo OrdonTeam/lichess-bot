@@ -10,7 +10,7 @@ class ExpansionTest {
     fun shouldExpandGame() {
         File(ExpansionTest::class.java.getResource("/game.pgn").file).useLines { inputLines ->
             File(ExpansionTest::class.java.getResource("/moves").file).useLines { expectedLines ->
-                assertThat(expandGamesToMoves(inputLines).toList()).isEqualTo(expectedLines.toList())
+                assertThat(expandGamesToMoves(inputLines).map { it.second }.toList()).isEqualTo(expectedLines.toList())
             }
         }
     }
