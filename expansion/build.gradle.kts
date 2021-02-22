@@ -10,7 +10,9 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(project(":common"))
+    implementation("com.github.bhlangonijr:chesslib:1.2.5")
     testImplementation(kotlin("test-junit"))
+    testImplementation("org.easytesting:fest-assert-core:2.0M10")
 }
 
 tasks.test {
