@@ -11,7 +11,7 @@ class DistributedMovesWriter(movesDirectory: String, private val numberOfFiles: 
 
     fun write(moveRow: Pair<Int, String>) {
         val hashCodeMod = (moveRow.first % numberOfFiles + numberOfFiles) % numberOfFiles
-        writers[hashCodeMod].write(moveRow.second)
+        writers[hashCodeMod].write(moveRow.second + "\n")
     }
 
     override fun close() {

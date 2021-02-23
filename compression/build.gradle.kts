@@ -11,6 +11,7 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":common"))
     testImplementation(kotlin("test-junit"))
+    testImplementation("org.easytesting:fest-assert-core:2.0M10")
 }
 
 tasks.test {
