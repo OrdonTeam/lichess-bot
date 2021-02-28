@@ -2,13 +2,14 @@ package io.github.ordonteam.lichess.bot
 
 fun main(args: Array<String>) {
     val lichessToken = args[0]
-    run(lichessToken)
+    val botId = args[1]
+    run(lichessToken, botId)
 }
 
-private fun run(lichessToken: String) {
+private fun run(lichessToken: String, botId: String) {
     try {
-        LichessBot(lichessToken, MoveFromDiskBotStrategy()).runBot()
+        LichessBot(lichessToken, botId, MoveFromDiskBotStrategy()).runBot()
     } catch (e: Throwable) {
-        run(lichessToken)
+        run(lichessToken, botId)
     }
 }

@@ -5,7 +5,7 @@ import io.github.ordonteam.lichess.bot.LichessApi.LichessGameEvent
 import io.github.ordonteam.lichess.bot.LichessApi.LichessGlobalEvent
 import io.reactivex.Observable
 
-class LichessBot(lichessToken: String, private val botStrategy: BotStrategy) {
+class LichessBot(lichessToken: String, private val botId: String, private val botStrategy: BotStrategy) {
 
     private val lichessApi = LichessApi(lichessToken)
 
@@ -81,8 +81,8 @@ class LichessBot(lichessToken: String, private val botStrategy: BotStrategy) {
     private fun getLichessGameDetails(id: String, event: LichessGameEvent.GameFull): LichessGameDetails {
         return LichessGameDetails(
             gameId = id,
-            opponentId = if (event.whiteId == "ordonteam") event.blackId else event.whiteId,
-            botSide = if (event.whiteId == "ordonteam") Side.WHITE else Side.BLACK
+            opponentId = if (event.whiteId == botId) event.blackId else event.whiteId,
+            botSide = if (event.whiteId == botId) Side.WHITE else Side.BLACK
         )
     }
 
