@@ -63,6 +63,7 @@ class LichessApi(lichessToken: String) {
         return when (fromJson.type) {
             "gameFull" -> LichessGameEvent.GameFull(fromJson.white!!.id, fromJson.black!!.id, fromJson.state!!.moves)
             "gameState" -> LichessGameEvent.GameState(fromJson.moves!!)
+            "chatLine" -> LichessGameEvent.ChatLine(fromJson.username!!, fromJson.text!!)
             else -> LichessGameEvent.Health.also {
                 println("Unsupported game event: $event")
             }
@@ -145,7 +146,9 @@ class LichessApi(lichessToken: String) {
         val white: InternalPlayer?,
         val black: InternalPlayer?,
         val state: InternalLichessGameEventState?,
-        val moves: String?
+        val moves: String?,
+        val username: String?,
+        val text: String?
     )
 
     private data class InternalLichessGameEventState(
@@ -165,6 +168,11 @@ class LichessApi(lichessToken: String) {
 
         data class GameState(
             val moves: String
+        ) : LichessGameEvent()
+
+        data class ChatLine(
+            val username: String,
+            val text: String
         ) : LichessGameEvent()
     }
 }

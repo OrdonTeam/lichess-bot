@@ -21,23 +21,26 @@ class LichessBot(lichessToken: String, private val botId: String, private val bo
             .blockingSubscribe()
     }
 
-    private fun acceptChallenges(allEvents: Observable<LichessGlobalEvent>): Observable<Unit> {
+    private fun acceptChallenges(allEvents: Observable<LichessGlobalEvent>): Observable<Any> {
         return allEvents.ofType(LichessGlobalEvent.Challenge::class.java)
             .map { lichessApi.acceptChallenge(it.id) }
-            .map { Unit }
     }
 
-    private fun playGames(allEvents: Observable<LichessGlobalEvent>): Observable<Unit> {
+    private fun playGames(allEvents: Observable<LichessGlobalEvent>): Observable<Any> {
         return allEvents.ofType(LichessGlobalEvent.GameStart::class.java)
             .flatMap { game ->
                 lichessApi.lichessGameEvents(game.id)
-                    .map { println(it); it }
-                    .scan(LichessGameDetailsOrNull()) { acc, event -> play(acc, event, game.id) }
+                    .map { it.also(::println) }
+                    .publish { gameEvents ->
+                        Observable.merge(
+                            gameEvents.scan(LichessGameDetailsOrNull()) { acc, event -> play(acc, event, game.id) },
+                            gameEvents.ofType(LichessGameEvent.ChatLine::class.java).map { botStrategy.chatLine(it.username, it.text) },
+                        )
+                    }
                     .takeUntil(allEvents
                         .ofType(LichessGlobalEvent.GameFinish::class.java)
                         .filter { it.id == game.id })
             }
-            .map { Unit }
     }
 
     private data class LichessGameDetailsOrNull(val lichessGameDetails: LichessGameDetails? = null)

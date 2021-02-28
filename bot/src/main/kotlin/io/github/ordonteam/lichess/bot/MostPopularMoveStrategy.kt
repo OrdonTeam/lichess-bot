@@ -7,4 +7,6 @@ class MostPopularMoveStrategy(private val movesProvider: MovesProvider) : BotStr
     override fun nextMove(lichessGame: LichessGame): String? {
         return movesProvider.getMovesForFen(lichessGame.fen).maxByOrNull { it.value.all }?.key
     }
+
+    override fun chatLine(playerId: String, text: String) = Unit
 }
