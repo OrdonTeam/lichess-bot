@@ -10,8 +10,8 @@ class MovesFromFileProvider(private val numberOfFiles: Int,private val movesDire
         val movesFile = File(movesDirectory, hashCodeMod.toString())
         return movesFile.useLines { lines ->
             lines.filter { it.startsWith(fen) }.groupBy(
-                keySelector = { it.split(" ").takeLast(6).first() },
-                valueTransform = { Counters.fromStrings(it.split(" ").takeLast(4)) }
+                keySelector = { it.split(",")[1] },
+                valueTransform = { Counters.fromStrings(it.split(",").takeLast(4)) }
             ).mapValues { Counters.sumCounters(it.value) }
         }
     }

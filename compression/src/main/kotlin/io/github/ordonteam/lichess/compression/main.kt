@@ -5,7 +5,7 @@ import java.time.LocalTime
 import java.util.concurrent.atomic.AtomicInteger
 
 fun main() {
-    compressMoveFiles("/home/ordon/Documents/moves")
+    compressMoveFiles("/home/ordon/Documents/lichess/moves")
 }
 
 fun compressMoveFiles(movesDirectoryPath: String) {

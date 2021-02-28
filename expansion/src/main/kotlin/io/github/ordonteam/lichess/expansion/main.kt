@@ -5,8 +5,8 @@ import java.time.LocalTime
 import java.util.concurrent.atomic.AtomicLong
 
 fun main() {
-    val inFile = "/home/ordon/Documents/lichess_db_standard_rated_stripped_89_151_959_all_2020-12.pgn"
-    val movesDirectory = "/home/ordon/Documents/moves"
+    val inFile = "/home/ordon/Documents/lichess/lichess_db_standard_rated_2021-01.pgn"
+    val movesDirectory = "/home/ordon/Documents/lichess/moves"
     val numberOfFiles = 100_000
     expandFileToMoves(inFile, movesDirectory, numberOfFiles)
 }
