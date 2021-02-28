@@ -6,9 +6,9 @@ import java.util.concurrent.atomic.AtomicLong
 
 fun main() {
     val inFile = "/home/ordon/Documents/lichess_db_standard_rated_stripped_89_151_959_all_2020-12.pgn"
-    val outDirectory = "/home/ordon/Documents/moves"
+    val movesDirectory = "/home/ordon/Documents/moves"
     val numberOfFiles = 100_000
-    expandFileToMoves(inFile, outDirectory, numberOfFiles)
+    expandFileToMoves(inFile, movesDirectory, numberOfFiles)
 }
 
 fun expandFileToMoves(inFile: String, movesDirectoryPath: String, numberOfFiles: Int) {
