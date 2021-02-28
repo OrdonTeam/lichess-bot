@@ -9,6 +9,7 @@ group = "me.ordon"
 version = "1.0-SNAPSHOT"
 
 dependencies {
+    implementation(project(":common"))
     implementation("io.reactivex.rxjava2:rxjava:2.2.20")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")

@@ -1,6 +1,7 @@
 package io.github.ordonteam.lichess.bot
 
 import io.github.ordonteam.lichess.bot.BotStrategy.LichessGame
+import io.github.ordonteam.lichess.common.Counters
 import java.io.File
 
 class MoveFromDiskBotStrategy : BotStrategy {
@@ -13,7 +14,10 @@ class MoveFromDiskBotStrategy : BotStrategy {
         val movesDirectory = File("/home/ordon/Documents/lichess/moves")
         val movesFile = File(movesDirectory, hashCodeMod.toString())
         return movesFile.useLines { lines ->
-            lines.filter { it.startsWith(fen) }.map({ it.split(" ").takeLast(6) }).maxByOrNull { it[1].toInt() }?.get(0)
+            lines.filter { it.startsWith(fen) }.groupBy(
+                keySelector = { it.split(" ").takeLast(6).first() },
+                valueTransform = { Counters.fromStrings(it.split(" ").takeLast(4)) }
+            ).mapValues { Counters.sumCounters(it.value) }.maxByOrNull { it.value.all }?.key
         }
     }
 }
