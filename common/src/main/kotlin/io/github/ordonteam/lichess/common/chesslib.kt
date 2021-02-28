@@ -1,5 +1,6 @@
 package io.github.ordonteam.lichess.bot
 
+import com.github.bhlangonijr.chesslib.Board
 import com.github.bhlangonijr.chesslib.move.MoveList
 
 fun movesToFen(moves: String): String {
@@ -9,5 +10,16 @@ fun movesToFen(moves: String): String {
         val moveList = MoveList()
         moveList.loadFromText(moves)
         moveList.fen
+    }
+}
+
+fun parseGameFromSan(san: String): List<Pair<String, String>> {
+    val moveList = MoveList()
+    moveList.loadFromSan(san)
+    val board = Board()
+    return moveList.map {
+        val fen = board.fen
+        board.doMove(it)
+        fen to it.toString()
     }
 }

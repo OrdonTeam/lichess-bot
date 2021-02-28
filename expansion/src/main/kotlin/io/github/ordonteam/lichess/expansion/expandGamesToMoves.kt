@@ -1,7 +1,6 @@
 package io.github.ordonteam.lichess.expansion
 
-import com.github.bhlangonijr.chesslib.Board
-import com.github.bhlangonijr.chesslib.move.MoveList
+import io.github.ordonteam.lichess.bot.parseGameFromSan
 
 internal fun expandGamesToMoves(lines: Sequence<String>): Sequence<Pair<Int, String>> {
     return lines
@@ -17,17 +16,6 @@ private fun parseGame(game: String): List<Pair<Int, String>> {
     val gameResultString = parseGameResult(gameResult)
     return moves.map { (fen, move) ->
         fen.hashCode() to "$fen,$move,$gameResultString"
-    }
-}
-
-private fun parseGameFromSan(san: String): List<Pair<String, String>> {
-    val moveList = MoveList()
-    moveList.loadFromSan(san)
-    val board = Board()
-    return moveList.map {
-        val fen = board.fen
-        board.doMove(it)
-        fen to it.toString()
     }
 }
 
