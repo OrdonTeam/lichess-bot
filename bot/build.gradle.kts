@@ -9,7 +9,13 @@ group = "me.ordon"
 version = "1.0-SNAPSHOT"
 
 dependencies {
+    implementation("io.reactivex.rxjava2:rxjava:2.2.20")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.github.bhlangonijr:chesslib:1.2.5")
     testImplementation(kotlin("test-junit"))
+    testImplementation("org.easytesting:fest-assert-core:2.0M10")
 }
 
 tasks.test {
